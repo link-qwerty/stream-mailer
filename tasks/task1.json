@@ -1,0 +1,9 @@
+{
+  "from": "t.bondarenko@prointegra.ru",
+  "to": "link.qwerty@gmail.com",
+  "cc": "t.bondarenko@prointegra.ru",
+  "bcc": "link.qwerty@gmail.com",
+  "subject": "Тестовое сообщение",
+  "template": "template1.html",
+  "replaces": {"personal": "Уважаемые коллеги!", "sign": "С Уважением!\nТакой-то"}
+}
