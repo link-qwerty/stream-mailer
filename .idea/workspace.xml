@@ -4,17 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5b42eb6-d418-4f9a-bf6f-3140e224ff08" name="Changes" comment="First commit of project (fork from old utility)">
-      <change afterPath="$PROJECT_DIR$/db/args.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handlers/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handlers/args.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handlers/json.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handlers/zdocx.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/sendmail.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tasks/task1.json" afterDir="false" />
+    <list default="true" id="c5b42eb6-d418-4f9a-bf6f-3140e224ff08" name="Changes" comment="Added argsparser, sendmail modules">
+      <change afterPath="$PROJECT_DIR$/services/mailer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/args.json" beforeDir="false" afterPath="$PROJECT_DIR$/db/args.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/args.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/args.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/json.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/json.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/zdocx.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/sendmail.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +56,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/Users/marie/PycharmProjects/StreamMailer/services",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "settings.editor.selected.configurable": "project.scopes"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -94,7 +92,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749581887704</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added argsparser, sendmail modules">
+      <option name="closed" value="true" />
+      <created>1750053648768</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1750053648768</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -110,6 +116,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First commit of project (fork from old utility)" />
-    <option name="LAST_COMMIT_MESSAGE" value="First commit of project (fork from old utility)" />
+    <MESSAGE value="Added argsparser, sendmail modules" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added argsparser, sendmail modules" />
   </component>
 </project>

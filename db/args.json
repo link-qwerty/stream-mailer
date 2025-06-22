@@ -1,8 +1,8 @@
 {
   "address": { "flag": "-a", "help": "SMTP server address", "default": "smtp.mail.ru"},
   "port": {"flag": "-p", "help": "SMTP server port", "default": 465, "type": "int"},
-  "cypher": {"flag": "-c", "help": "SMTP server use STARTTLS", "action": "store_false"},
-  "ssl": {"flag": "-s", "help": "SMTP server use SSL", "action": "store_true"},
+  "cypher": {"flag": "-c", "help": "SMTP server use STARTTLS", "default": false, "action": "store_false"},
+  "ssl": {"flag": "-s", "help": "SMTP server use SSL", "default": true, "action": "store_true"},
   "login": {"flag": "-L", "help": "SMTP server login", "default": "user@mail.com"},
   "password": {"flag": "-P", "help": "SMTP server password", "default": "password"},
   "templates-dir": {"flag": "-t", "help": "templates directory", "default": "templates/"},

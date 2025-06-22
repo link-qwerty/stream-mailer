@@ -29,8 +29,10 @@ class JSONHandler:
         :param str filename: Имя файла JSON
         """
 
+        # ОТкрываем файл
         self.__filename = filename
         with open(self.__filename, 'r', encoding= 'utf-8') as file:
+            # Записываем данные в переменную класса
             self.__data = json.load(file)
 
     def get(self, section: str = None, key: str = None):
@@ -40,7 +42,7 @@ class JSONHandler:
         Возвращает данные из JSON по имени секции и имени ключа (имени переменной) в ней. Если аргументы не заданы,
         то возвращает весь массив данных
         :param section: Секция данных (имя словаря)
-        :param key: Ключ секции (ключ словаря)
+        :param key:     Ключ секции (ключ словаря)
         :return: Содержимое ключа или весь массив данных
         """
 
