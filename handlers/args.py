@@ -14,9 +14,11 @@ class ArgsHandler:
     ----------------
         __new__(cls, *args, **kwargs)
             Конструктор: Создание
-        __init__(self, filename: str)
+        __init__(self, name:str, description: str)
             Конструктор: Инициализация
-        get(self, intent: str)
+        parse(self, dict_args: dict)
+            Парсинг аргументов
+        get(self, name:str = None)
             Получение аргументов командной строки
     Атрибуты
     ----------------
@@ -33,8 +35,8 @@ class ArgsHandler:
 
         Размещает в памяти объект-хендлер и записывает ссылку на него в переменную класса. При следующем вызове
         конструктора новый объект не будет создаваться, вместо него будет использоваться существующий
-        :param any args:    Список позиционных аргументов
-        :param any kwargs:  Словарь именованных аргументов
+        :param args:    Список позиционных аргументов
+        :param kwargs:  Словарь именованных аргументов
         """
 
         # Формируем из объекта синглетон
@@ -42,19 +44,28 @@ class ArgsHandler:
             cls.__instance = super().__new__(cls)
         return cls.__instance
 
-    def __init__(self, name:str, description: str, dict_args: dict):
+    def __init__(self, name:str, description: str):
         """
         Конструктор: Инициализация
 
-        Инициализирует объект-хендлер, создает парсер аргументов командной строки и инициализирует его значениями из
-        заранее подготовленного словаря
-        :param str name:        Имя программы
-        :param str description: Описание программы
-        :param dict dict_args:  Словарь аргументов
+        Инициализирует объект-хендлер, создает парсер аргументов командной строки и инициализирует пустой список
+        аргументов
+        :param name:        Имя программы
+        :param description: Описание программы
         """
 
-        # Создаем парсер
         self.__cmd = argparse.ArgumentParser(prog=name, description=description)
+        self.__args = list()
+
+    def parse(self, dict_args: dict):
+        """
+        Парсинг аргументов
+
+        Разбирает словарь аргументов на секции, инициализирует ими парсер и получает список аргументов из
+        командной строки
+        :param dict_args:   Словарь аргументов
+        :return: None
+        """
 
         # Разбираем словарь на секции и создаем список аргументов
         for section, content in dict_args.items():
@@ -63,7 +74,7 @@ class ArgsHandler:
                 content['type'] = getattr(builtins, content['type'])
 
             # Описываем генератор списка именованных аргументов
-            named_args = {x:content[x] for x in ['help', 'action', 'type', 'default', 'required'] if x in content}
+            named_args = {x: content[x] for x in ['help', 'action', 'type', 'default', 'required'] if x in content}
             # Передаем словарь именованных аргументов в вызов функции
             self.__cmd.add_argument(content["flag"], f'--{section}', **named_args)
 
@@ -76,7 +87,7 @@ class ArgsHandler:
 
         Возвращает значение аргумента командной стоки по имени. Если метод вызван без аргументов, то возвращает весь
         список переданных аргументов
-        :param str name: Имя аргумента командной строки
+        :param name: Имя аргумента командной строки
         :return: Значение выбранного аргумента или весь список
         """
 

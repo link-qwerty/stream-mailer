@@ -10,30 +10,41 @@ class JSONHandler:
 
     Методы
     ----------------
-        __init__(self, filename: str)
+        __init__(self)
             Конструктор: Инициализация
+        parse(self, filename:str)
+            Парсинг файла
         get(self, section: str, key: str)
             Получение данных
     Атрибуты
     ----------------
-        :ivar {str} filename: Имя файла JSON
         :ivar {any} __data__: Данные JSON
     """
 
-    def __init__(self, filename: str):
+    def __init__(self):
         """
         Конструктор: Инициализация
 
-        Инициализирует объект-хендлер именем файла, открывает указанный файл и загружает данные из него в переменную
-        объекта
-        :param str filename: Имя файла JSON
+        Инициализирует объект-хендлер
         """
 
-        # ОТкрываем файл
-        self.__filename = filename
-        with open(self.__filename, 'r', encoding= 'utf-8') as file:
+        self.__data = dict()
+
+    def parse(self, filename:str):
+        """
+        Парсинг файла
+
+        Открывает файл JSON, парсит его и сохраняет полученные результаты в переменную объекта
+        :param filename: Имя файла JSON
+        :return: None
+        """
+
+        # Открываем файл
+        with open(filename, 'r', encoding='utf-8') as file:
             # Записываем данные в переменную класса
             self.__data = json.load(file)
+        # Закраем файл
+        file.close()
 
     def get(self, section: str = None, key: str = None):
         """
@@ -41,8 +52,8 @@ class JSONHandler:
 
         Возвращает данные из JSON по имени секции и имени ключа (имени переменной) в ней. Если аргументы не заданы,
         то возвращает весь массив данных
-        :param section: Секция данных (имя словаря)
-        :param key:     Ключ секции (ключ словаря)
+        :param section:     Секция данных (имя словаря)
+        :param key:         Ключ секции (ключ словаря)
         :return: Содержимое ключа или весь массив данных
         """
 

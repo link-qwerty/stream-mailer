@@ -42,7 +42,7 @@ def make(from_sender:str, to_rcpt:str, subject:str, plain: str, html: str, mail_
     return filename
 
 
-class MailSender:
+class Mailer:
     """
     Класс для отправки почтовых сообщений
 
@@ -112,7 +112,7 @@ class MailSender:
             # Вход на сервер
             server.login(self.__user, self.__password)
             # Отправка сообщения
-            server.sendmail(message["From"], message["To"].split(','), message.as_string())
+            server.sendmail(message["From"], message['To'], message.as_string())
             # Выход
             server.quit()
         except smtplib.SMTPException as err:
