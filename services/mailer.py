@@ -41,7 +41,6 @@ def make(from_sender:str, to_rcpt:str, subject:str, plain: str, html: str, mail_
     # Возвращаем имя сгенерированного файла
     return filename
 
-
 class Mailer:
     """
     Класс для отправки почтовых сообщений
@@ -119,13 +118,3 @@ class Mailer:
             return err
         else:
             return True
-
-
-
-
-
-
-
-
-
-

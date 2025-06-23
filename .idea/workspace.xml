@@ -4,15 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5b42eb6-d418-4f9a-bf6f-3140e224ff08" name="Changes" comment="Finally rewrite sendmail module, finalize argparser, small changes in other modules">
-      <change afterPath="$PROJECT_DIR$/utils/__init__.py" afterDir="false" />
+    <list default="true" id="c5b42eb6-d418-4f9a-bf6f-3140e224ff08" name="Changes" comment="Added task manager">
+      <change afterPath="$PROJECT_DIR$/services/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/args.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/args.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/json.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/json.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/tasks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/mailer.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/mailer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tasks/task1.json" beforeDir="false" afterPath="$PROJECT_DIR$/tasks/task1.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/persons.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/mailer.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/mailer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +64,7 @@
       <recent name="C:\Users\marie\PycharmProjects\StreamMailer\hadlers" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\marie\PycharmProjects\StreamMailer\tasks" />
       <recent name="C:\Users\marie\PycharmProjects\StreamMailer\services" />
     </key>
   </component>
@@ -108,7 +108,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750578910711</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added task manager">
+      <option name="closed" value="true" />
+      <created>1750659430823</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1750659430823</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -126,6 +134,7 @@
     <MESSAGE value="First commit of project (fork from old utility)" />
     <MESSAGE value="Added argsparser, sendmail modules" />
     <MESSAGE value="Finally rewrite sendmail module, finalize argparser, small changes in other modules" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finally rewrite sendmail module, finalize argparser, small changes in other modules" />
+    <MESSAGE value="Added task manager" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added task manager" />
   </component>
 </project>
