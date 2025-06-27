@@ -8,6 +8,7 @@ def transform(text: str, replaces: dict):
     Обрабатывает текст, заменяя ключевые слова значениями из словаря замены
     :param text:        Текст для отработки
     :param replaces:    Словарь замен
+
     :return: Обработанный текст
     """
 
@@ -99,8 +100,8 @@ class TaskManager:
             # Определяем контекст задания
             if content["service"] == "mailer":
                 # Собираем задание из существующих полей генератором словаря
-                task = dict({x: content[x] for x in ['service', 'from', 'to', 'subject', 'template', 'template_repeat',
-                                                    'repeat', 'replaces'] if x in content})
+                task = dict({x: content[x] for x in
+                             ['service', 'from', 'to', 'subject', 'template', 'images', 'replaces'] if x in content})
                 # Загружаем персональный словарь замен
                 self.__parser.parse("db/persons.json")
                 persons = self.__parser.get()
@@ -133,6 +134,7 @@ class TaskManager:
             if task['service'] == service:
                 # Если контекст задания почтовая рассылка
                 if task['service'] == "mailer":
+
                     for rcpt in task['to']:
                         # Обрабатываем тему письма
                         task['to'][rcpt]['subject'] = transform(task['to'][rcpt]['subject'],

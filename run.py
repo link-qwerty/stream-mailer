@@ -4,6 +4,7 @@ from handlers.json import JSONHandler
 from handlers.args import ArgsHandler
 from handlers.tasks import TaskManager
 from services.mailer import make, Mailer
+import logging
 
 # Defines
 DEBUG = False    # Директива препроцессора (аналог)
@@ -33,15 +34,19 @@ else:
 })
 
 # Создаем директории (если еще не созданы)
-os.makedirs(args.get("templates_dir"), exist_ok = True)
-os.makedirs(args.get("tasks_dir"), exist_ok = True)
+#os.makedirs(args.get("templates_dir"), exist_ok = True)
+os.makedirs(args.get("templates_dir") + "files/images/", exist_ok = True)
+#os.makedirs(args.get("tasks_dir"), exist_ok = True)
 os.makedirs(args.get("tasks_dir") + "complete/", exist_ok = True)
-os.makedirs(args.get("mail_dir"), exist_ok = True)
+#os.makedirs(args.get("mail_dir"), exist_ok = True)
 os.makedirs(args.get("mail_dir") + "out/", exist_ok = True)
 os.makedirs(args.get("mail_dir") + "send", exist_ok = True)
 os.makedirs(args.get("mail_dir") + "bad/", exist_ok = True)
 os.makedirs(args.get("logs_dir"), exist_ok = True)
 
+# Настраиваем логгер
+logging.basicConfig(level=logging.INFO, filename=args.get("logs_dir") + 'mail.log', filemode="a",
+                    format="%(asctime)s %(levelname)s %(message)s")
 # Создаем объект для обработки заданий
 task_manager = TaskManager(args.get("tasks_dir"), args.get("templates_dir"), JSONHandler())
 # Создаем объект для отправки почты
@@ -59,10 +64,23 @@ for i in range(0, task_manager.count()):
     for rcpt, content in task['to'].items():
         # Создаем сообщение
         message_filename =  make(task['from'], rcpt, content['subject'], content['txt_body'], content['html_body'],
-                         args.get("mail_dir") + "out/")
+                                 args.get('templates_dir') + "files/", args.get("mail_dir") + "out/",
+                                 task['images'] if 'images' in task else None,
+                                 task['attachments'] if 'attachment' in task else None)
         # Отправляем
-        mailer.send(args.get("mail_dir") + "out/" + message_filename)
-        # Переносим файл почтового сообщения в отправленные
-        os.rename(args.get("mail_dir") + "out/" + message_filename, args.get("mail_dir") + "send/" + message_filename)
+        result = mailer.send(args.get("mail_dir") + "out/" + message_filename)
+        if result:
+            # Переносим файл почтового сообщения в отправленные
+            os.rename(args.get("mail_dir") + "out/" + message_filename,
+                      args.get("mail_dir") + "send/" + message_filename)
+            # Вносим запись в логгер об успешной отправке письма
+            logging.info(f'Message sent from {task['from']} to {content['replaces']['Название компании']}<{rcpt}>, message file {message_filename}')
+        else:
+            # Переносим файл почтового сообщения в ошибки
+            os.rename(args.get("mail_dir") + "out/" + message_filename,
+                      args.get("mail_dir") + "bad/" + message_filename)
+            # Вносим запись в логгер об ошибке
+            logging.error(f'Message from {task['from']} to {rcpt} not sent, message file {message_filename}',
+                         exc_info=True)
     # Переносим задание в отработанные
-    os.rename(args.get("tasks_dir") + task_file, args.get("tasks_dir") + "complete/" + task_file)
+    #os.rename(args.get("tasks_dir") + task_file, args.get("tasks_dir") + "complete/" + task_file)

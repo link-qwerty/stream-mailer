@@ -1,18 +1,17 @@
 {
   "service": "mailer",
-  "from": "t.bondarenko@prointegra.ru",
+  "from": "Станислав Пастух <CEO@prointegra.ru>",
   "to": "link.qwerty@gmail.com",
   "subject": "ИБ-субподрядчик для [Название компании] – без найма и соцпакетов",
-  "template": "message-zero",
-  "template_repeat": "message-repeat",
-  "repeat": 5,
+  "images": {"logo": "images/logo.png", "banner":  "images/banner.png"},
+  "template": "Шаблон первого письма",
   "replaces": {
     "Забронировать звонок": "(в разработке)",
-    "Адрес для ответа": "t.bondarenko@prointegra.ru",
-    "Ваш телефон": "+7 924 665 33-43",
+    "Адрес для ответа": "ceo@prointegra.ru",
+    "Ваш телефон": "Телефон/<a href='https://t.me/StanislavPastukh'>Telegram</a>/<a href='https://wa.me/+79188765515'>WhatsApp</a>: +7 (918) 876-55-15",
     "Часы работы": "с 09:00 до 18:00",
-    "Имя Фамилия": "Илон Маск",
-    "Должность": "Главный по тарелочкам",
-    "Телефон": "+7 924 665 33-43"
+    "Имя Фамилия": "Станислав Пастух",
+    "Должность": "Директор по стратегическому развитию",
+    "Телефон": "<a href='https://t.me/StanislavPastukh'>Telegram</a>/<a href='https://wa.me/+79188765515'>WhatsApp</a>:"
     }
 }

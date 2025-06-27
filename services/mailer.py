@@ -1,13 +1,15 @@
 # Imports
 import uuid
 import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+from email.message import EmailMessage
 from email.policy import default
 from email.parser import BytesParser
+from email.utils import make_msgid
+import mimetypes
 
 # Defines
-def make(from_sender:str, to_rcpt:str, subject:str, plain: str, html: str, mail_directory: str):
+def make(from_sender:str, to_rcpt:str, subject:str, plain: str, html: str,
+         files_directory: str, mail_directory: str, images: dict = None, attachments: dict = None):
     """
     Создание сообщения
 
@@ -17,26 +19,64 @@ def make(from_sender:str, to_rcpt:str, subject:str, plain: str, html: str, mail_
     :param subject:         Тема письма
     :param plain:           Тест без разметки (замещающий)
     :param html:            Текст в разметке html (основной)
+    :param files_directory: Директория c прикрепляемыми файлами
     :param mail_directory:  Директория для сохранения файла почтового сообщения
+    :param images:          Словарь изображений
+    :param attachments:     Словарь вложений
     :return: Имя файла сформированного почтового сообщения
     """
 
-    #  Формируем заголовок письма
-    message = MIMEMultipart("alternative")
+    # Создаем контейнер письма
+    message = EmailMessage()
+    # Указываем кодировку
+    message.set_charset("utf-8")
+    # Формируем заголовок письма
     message['From'] = from_sender
     message['To'] = to_rcpt
     message['Subject'] = subject
 
-    # Добавляем содержимое тела письма (добавленный последним блок считается приоритетным)
-    message.attach(MIMEText(plain, "plain"))
-    message.attach(MIMEText(html, "html"))
+    # Прикрепляем текстовое содержимое тела письма
+    message.set_content(plain)
 
-    # Генерируем имя сообщения в виде UUID
+    # Внедряем в тело письма изображения (если они есть)
+    if not images is None:
+        for cid, image_name in images.items():
+            # Генерируем ид изображения
+            image_cid = make_msgid(domain="prointegra.ru")
+            # Внедряем ид в содержимое html сообщения
+            html = html.replace('{' + cid + '}', image_cid[1:-1])
+            message.add_alternative(html, subtype="html")
+            # Читаем файл изображения
+            with open(files_directory + image_name, "r+b") as img_file:
+                # Определяем по заголовку тип файла
+                _maintype, _subtype = mimetypes.guess_type(img_file.name)[0].split('/')
+                # Прикрепляем файл изображения
+                message.get_payload()[1].add_related(img_file.read(), maintype=_maintype, subtype=_subtype, cid=image_cid)
+                # Закрываем файл
+                img_file.close()
+    else:
+        # Встроенных изображений нет - просто прикрепляем html содержимое Без файлов
+        message.add_alternative(html, subtype="html")
+
+    # Прикрепляем файлы (если есть)
+    if not attachments is None:
+        for alt, attach_name in attachments.items():
+
+            # Читаем файл вложения
+            with open(files_directory + attach_name, "r+b") as attach_file:
+                # Определяем по заголовку тип файла
+                _maintype, _subtype = mimetypes.guess_type(attach_file.name)[0].split('/')
+                # Прикрепляем файл изображения
+                message.get_payload()[1].add_related(attach_file.read(), maintype=_maintype, subtype=_subtype)
+                # Закрываем файл
+                attach_file.close()
+
+    # Генерируем имя файла сообщения в виде UUID
     filename = str(uuid.uuid4()) + ".msg"
     # Запись сообщения в файл
-    with open(mail_directory + filename, 'w+b') as file:
-        file.write(message.as_bytes())
-    file.close()
+    with open(mail_directory + filename, 'w+b') as msg_file:
+        msg_file.write(message.as_bytes())
+    msg_file.close()
 
     # Возвращаем имя сгенерированного файла
     return filename
@@ -111,7 +151,7 @@ class Mailer:
             # Вход на сервер
             server.login(self.__user, self.__password)
             # Отправка сообщения
-            server.sendmail(message["From"], message['To'], message.as_string())
+            server.send_message(message, message["From"], message["To"])
             # Выход
             server.quit()
         except smtplib.SMTPException as err:
