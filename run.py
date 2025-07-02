@@ -74,13 +74,15 @@ for i in range(0, task_manager.count()):
             os.rename(args.get("mail_dir") + "out/" + message_filename,
                       args.get("mail_dir") + "send/" + message_filename)
             # Вносим запись в логгер об успешной отправке письма
-            logging.info(f'Message sent from {task['from']} to {content['replaces']['Название компании']}<{rcpt}>, message file {message_filename}')
+            logging.info(f'Message was sent from {task['from']}'
+                         f'to {content['replaces']['Название компании']}<{rcpt}>, message file {message_filename}')
         else:
             # Переносим файл почтового сообщения в ошибки
             os.rename(args.get("mail_dir") + "out/" + message_filename,
                       args.get("mail_dir") + "bad/" + message_filename)
             # Вносим запись в логгер об ошибке
-            logging.error(f'Message from {task['from']} to {rcpt} not sent, message file {message_filename}',
-                         exc_info=True)
+            logging.error(f'Message from {task['from']} '
+                          f'to {content['replaces']['Название компании']}<{rcpt}> was not sent, '
+                          f'message file {message_filename}', exc_info=True)
     # Переносим задание в отработанные
-    #os.rename(args.get("tasks_dir") + task_file, args.get("tasks_dir") + "complete/" + task_file)
+    os.rename(args.get("tasks_dir") + task_file, args.get("tasks_dir") + "complete/" + task_file)
