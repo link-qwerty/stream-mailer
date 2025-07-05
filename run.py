@@ -1,4 +1,5 @@
 # Import
+import datetime
 import os
 from handlers.json import JSONHandler
 from handlers.args import ArgsHandler
@@ -34,11 +35,9 @@ else:
 })
 
 # Создаем директории (если еще не созданы)
-#os.makedirs(args.get("templates_dir"), exist_ok = True)
 os.makedirs(args.get("templates_dir") + "files/images/", exist_ok = True)
-#os.makedirs(args.get("tasks_dir"), exist_ok = True)
 os.makedirs(args.get("tasks_dir") + "complete/", exist_ok = True)
-#os.makedirs(args.get("mail_dir"), exist_ok = True)
+os.makedirs(args.get("tasks_dir") + "suspend/", exist_ok = True)
 os.makedirs(args.get("mail_dir") + "out/", exist_ok = True)
 os.makedirs(args.get("mail_dir") + "send", exist_ok = True)
 os.makedirs(args.get("mail_dir") + "bad/", exist_ok = True)
@@ -52,10 +51,18 @@ task_manager = TaskManager(args.get("tasks_dir"), args.get("templates_dir"), JSO
 # Создаем объект для отправки почты
 mailer = Mailer(args.get("address"), args.get("port"), args.get("login"), args.get("password"),
                 args.get("cypher"), args.get("ssl"))
+
+# Создаем генератор списка для файлов отложенных заданий
+suspend_task_files = [f for f in os.listdir(args.get("tasks_dir") + 'suspend/')
+                      if f.endswith('.json') and f[0:8] == datetime.datetime.now().strftime('%d%m%Y')]
+# Переносим файлы отложенных заданий в рабочий каталог
+for suspend_file in suspend_task_files:
+    os.rename(args.get("tasks_dir") + f'suspend/{suspend_file}', args.get("tasks_dir") + suspend_file)
 # Создаем генератор списка для файлов заданий
 tasks_files = [f for f in os.listdir(args.get("tasks_dir")) if f.endswith('.json')]
 # Отрабатываем задания
 task_manager.parse(tasks_files)
+
 # Выполняем задания
 for i in range(0, task_manager.count()):
     # Выбираем для исполнения только задания на почтовую рассылку
@@ -74,8 +81,9 @@ for i in range(0, task_manager.count()):
             os.rename(args.get("mail_dir") + "out/" + message_filename,
                       args.get("mail_dir") + "send/" + message_filename)
             # Вносим запись в логгер об успешной отправке письма
-            logging.info(f'Message was sent from {task['from']}'
-                         f'to {content['replaces']['Название компании']}<{rcpt}>, message file {message_filename}')
+            logging.info(f'Message was sent from {task['from']} '
+                         f'to {content['replaces']['Название компании']}<{rcpt}>, '
+                         f'project {content['replaces']['Проект']}, message file {message_filename}')
         else:
             # Переносим файл почтового сообщения в ошибки
             os.rename(args.get("mail_dir") + "out/" + message_filename,
@@ -83,6 +91,6 @@ for i in range(0, task_manager.count()):
             # Вносим запись в логгер об ошибке
             logging.error(f'Message from {task['from']} '
                           f'to {content['replaces']['Название компании']}<{rcpt}> was not sent, '
-                          f'message file {message_filename}', exc_info=True)
+                          f'project {content['replaces']['Проект']}, message file {message_filename}')
     # Переносим задание в отработанные
     os.rename(args.get("tasks_dir") + task_file, args.get("tasks_dir") + "complete/" + task_file)

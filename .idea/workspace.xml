@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5b42eb6-d418-4f9a-bf6f-3140e224ff08" name="Changes" comment="">
+    <list default="true" id="c5b42eb6-d418-4f9a-bf6f-3140e224ff08" name="Changes" comment="Last commit before relize">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/persons.json" beforeDir="false" afterPath="$PROJECT_DIR$/db/persons.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/json.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/json.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/tasks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tasks/task1.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/mailer.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/mailer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,15 +47,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/marie/PycharmProjects/StreamMailer/services&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.scopes&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.run.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/marie/PycharmProjects/StreamMailer/services",
+    "settings.editor.selected.configurable": "project.scopes"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\marie\PycharmProjects\StreamMailer\services" />
@@ -129,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751048366421</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Last commit before relize">
+      <option name="closed" value="true" />
+      <created>1751449471370</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1751449471370</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -150,6 +160,7 @@
     <MESSAGE value="Added task manager" />
     <MESSAGE value="MVP release" />
     <MESSAGE value="Fixed: mailer, task manager, templates&#10;Realized: logging" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed: mailer, task manager, templates&#10;Realized: logging" />
+    <MESSAGE value="Last commit before relize" />
+    <option name="LAST_COMMIT_MESSAGE" value="Last commit before relize" />
   </component>
 </project>
