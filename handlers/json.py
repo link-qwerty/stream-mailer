@@ -14,6 +14,10 @@ class JSONHandler:
             Конструктор: Инициализация
         parse(self, filename:str)
             Парсинг файла
+        dump(self, filename: str)
+            Запись данных в файл
+        set(self, section: str, key: str, value: any)
+            Изменение данных
         get(self, section: str, key: str)
             Получение данных
     Атрибуты
@@ -35,7 +39,7 @@ class JSONHandler:
         Парсинг файла
 
         Открывает файл JSON, парсит его и сохраняет полученные результаты в переменную объекта
-        :param filename: Имя файла JSON
+        :param filename:    Имя файла JSON
         :return: None
         """
 
@@ -43,8 +47,36 @@ class JSONHandler:
         with open(filename, 'r', encoding='utf-8') as file:
             # Записываем данные в переменную класса
             self.__data = json.load(file)
-        # Закраем файл
-        file.close()
+
+    def dump(self, filename: str):
+        """
+        Запись данных в файл
+
+        Записывает данные из внутреннего хранилища в файл
+        :param filename:    Имя файла JSON
+        :return: None
+        """
+
+        with open(filename, 'w', encoding='utf-8') as file:
+            json.dump(self.__data, file, ensure_ascii=False, indent=4)
+
+    def set(self, value: any, section: str = None, key: str = None):
+        """
+        Изменение данных
+
+        Изменяет данные в объекте по имени секции и ключу. Если аргументы секции и ключа не заданы, то перезаписывает
+        весь массив данных
+        :param value:       Новое значение
+        :param section:     Секция данных (имя словаря)
+        :param key:         Ключ секции (ключ словаря)
+        :return: None
+        """
+
+        if section is None and key is None:
+            self.__data = value
+        else:
+            self.__data[section][key] = value
+
 
     def get(self, section: str = None, key: str = None):
         """

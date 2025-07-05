@@ -1,4 +1,6 @@
 # Imports
+import uuid
+import datetime
 
 # Defines
 def transform(text: str, replaces: dict):
@@ -101,7 +103,7 @@ class TaskManager:
             if content["service"] == "mailer":
                 # Собираем задание из существующих полей генератором словаря
                 task = dict({x: content[x] for x in
-                             ['service', 'from', 'to', 'subject', 'template', 'images', 'replaces'] if x in content})
+                             ['service', 'from', 'to', 'subject', 'template', 'repeat', 'repeat-template', 'images', 'replaces'] if x in content})
                 # Загружаем персональный словарь замен
                 self.__parser.parse("db/persons.json")
                 persons = self.__parser.get()
@@ -117,6 +119,17 @@ class TaskManager:
                 task.pop('subject')
                 # Помещаем задание в очередь
                 self.__tasks[file] = task
+
+                # Обрабатываем вторичную рассылку
+                if 'repeat' in task:
+                    suspended = {'service': 'mailer', 'from': task['from'], 'to': content['to'],
+                                 'subject': content['repeat-subject'], 'template': content['repeat-template'],
+                                 'replaces': content['replaces']}
+                    # Записываем задание в файл
+                    self.__parser.set(suspended)
+                    self.__parser.dump(self.__tasks_directory +
+                                       f'suspend/{(datetime.datetime.now() + 
+                                                   datetime.timedelta(content['repeat'])).strftime('%d%m%Y')}_{uuid.uuid4()}.json')
 
     def get(self, service: str = None):
         """
@@ -174,7 +187,7 @@ class TaskManager:
         # Открываем файл шаблона
         with open(self.__templates_directory + template_file, "r", encoding="utf-8") as template:
             content = template.read()
-        template.close()
+
         # Производим его обработку, заменяя значения из списка замены
         content = transform(content, replaces)
         # Возвращаем обработанный текст

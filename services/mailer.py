@@ -52,8 +52,6 @@ def make(from_sender:str, to_rcpt:str, subject:str, plain: str, html: str,
                 _maintype, _subtype = mimetypes.guess_type(img_file.name)[0].split('/')
                 # Прикрепляем файл изображения
                 message.get_payload()[1].add_related(img_file.read(), maintype=_maintype, subtype=_subtype, cid=image_cid)
-                # Закрываем файл
-                img_file.close()
     else:
         # Встроенных изображений нет - просто прикрепляем html содержимое Без файлов
         message.add_alternative(html, subtype="html")
@@ -68,15 +66,12 @@ def make(from_sender:str, to_rcpt:str, subject:str, plain: str, html: str,
                 _maintype, _subtype = mimetypes.guess_type(attach_file.name)[0].split('/')
                 # Прикрепляем файл изображения
                 message.get_payload()[1].add_related(attach_file.read(), maintype=_maintype, subtype=_subtype)
-                # Закрываем файл
-                attach_file.close()
 
     # Генерируем имя файла сообщения в виде UUID
     filename = str(uuid.uuid4()) + ".msg"
     # Запись сообщения в файл
     with open(mail_directory + filename, 'w+b') as msg_file:
         msg_file.write(message.as_bytes())
-    msg_file.close()
 
     # Возвращаем имя сгенерированного файла
     return filename
@@ -136,7 +131,6 @@ class Mailer:
         # Загрузка сообщения из файла
         with open(msg_path, "r+b") as file:
             message = BytesParser(policy=default).parse(file)
-        file.close()
 
         # Соединение с сервером
         try:
