@@ -4,14 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5b42eb6-d418-4f9a-bf6f-3140e224ff08" name="Changes" comment="Reliz commit">
-      <change afterPath="$PROJECT_DIR$/tasks/mail_posting_100725.json" afterDir="false" />
+    <list default="true" id="c5b42eb6-d418-4f9a-bf6f-3140e224ff08" name="Changes" comment="Add exceptions to modules">
+      <change afterPath="$PROJECT_DIR$/templates/files/images/banner.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/files/images/banner2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/files/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Шаблон второго письма.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Шаблон второго письма.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Шаблон первого письма (без конкурса).html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Шаблон первого письма (без конкурса).txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Шаблон первого письма заказчику.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Шаблон первого письма заказчику.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Шаблон первого письма исполнителю.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Шаблон первого письма исполнителю.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Шаблон с бронированием.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/persons.json" beforeDir="false" afterPath="$PROJECT_DIR$/db/persons.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/json.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/json.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/mailer.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/mailer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +166,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751720605492</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Add exceptions to modules">
+      <option name="closed" value="true" />
+      <created>1752151294096</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1752151294096</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -183,6 +197,7 @@
     <MESSAGE value="Fixed: mailer, task manager, templates&#10;Realized: logging" />
     <MESSAGE value="Last commit before relize" />
     <MESSAGE value="Reliz commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reliz commit" />
+    <MESSAGE value="Add exceptions to modules" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add exceptions to modules" />
   </component>
 </project>
