@@ -15,7 +15,7 @@ DEBUG = False    # Директива препроцессора (аналог)
 args = ArgsHandler("mailer", "Mailer Queue(cl)LQ@2025 Free to use")
 if DEBUG:
     # Считываем набор аргументов из JSON
-    args_json = JSONHandler()
+    args_json = JSONHandler("/logs")
     args_json.parse("db/args.json")
     # Загружаем набор аргументов в парсер
     args.parse(args_json.get())
@@ -47,9 +47,9 @@ os.makedirs(args.get("logs_dir"), exist_ok = True)
 logging.basicConfig(level=logging.INFO, filename=args.get("logs_dir") + 'mail.log', filemode="a",
                     format="%(asctime)s %(levelname)s %(message)s")
 # Создаем объект для обработки заданий
-task_manager = TaskManager(args.get("tasks_dir"), args.get("templates_dir"), JSONHandler())
+task_manager = TaskManager(args.get("tasks_dir"), args.get("templates_dir"), JSONHandler(args.get("logs_dir")))
 # Создаем объект для отправки почты
-mailer = Mailer(args.get("address"), args.get("port"), args.get("login"), args.get("password"),
+mailer = Mailer(args.get("address"), args.get("port"), args.get("login"), args.get("password"), args.get("logs_dir"),
                 args.get("cypher"), args.get("ssl"))
 
 # Создаем генератор списка для файлов отложенных заданий

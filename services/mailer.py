@@ -1,4 +1,5 @@
 # Imports
+import logging
 import uuid
 import smtplib
 from email.message import EmailMessage
@@ -6,6 +7,8 @@ from email.policy import default
 from email.parser import BytesParser
 from email.utils import make_msgid
 import mimetypes
+from smtplib import SMTPConnectError
+
 
 # Defines
 def make(from_sender:str, to_rcpt:str, subject:str, plain: str, html: str,
@@ -98,20 +101,31 @@ class Mailer:
         :ivar {bool} __ssl:         Признак использования протокола SSL
     """
 
-    def __init__(self, address:str, port:int, user:str, password:str, tls:bool = False, ssl:bool = True):
+    def __init__(self, address:str, port:int, user:str, password:str, logs_directory: str, tls:bool = False, ssl:bool = True, ):
         """
         Конструктор: Инициализация
 
         Инициализирует объект класса настройками подключения к серверу отправки электронной почты. Создает очередь
         сообщений
-        :param address:     Адрес сервера
-        :param port:        Порт сервера
-        :param user:        Пользователь сервера
-        :param password:    Пароль пользователя
-        :param tls:         Сообщения шифруются
-        :param ssl:         Соединение происходит через протокол SSL
+        :param address:         Адрес сервера
+        :param port:            Порт сервера
+        :param user:            Пользователь сервера
+        :param password:        Пароль пользователя
+        :param logs_directory:  Директория для лога
+        :param tls:             Сообщения шифруются
+        :param ssl:             Соединение происходит через протокол SSL
         """
 
+        # Настраиваем логгер
+        self.logs_directory = logs_directory
+        self.__logger = logging.getLogger(__name__)
+        self.__logger.setLevel(logging.INFO)
+        logger_handler = logging.FileHandler(f"{logs_directory}/{__name__}.log", mode='a')
+        logger_formatter = logging.Formatter("%(name)s %(asctime)s %(levelname)s %(message)s")
+        logger_handler.setFormatter(logger_formatter)
+        self.__logger.addHandler(logger_handler)
+
+        # Устанавливаем переменные объекта
         self.__address = address
         self.__port = port
         self.__user = user
@@ -128,12 +142,11 @@ class Mailer:
         :return: True в случае успешной отправки и объект SMTPException в случае ошибки
         """
 
-        # Загрузка сообщения из файла
-        with open(msg_path, "r+b") as file:
-            message = BytesParser(policy=default).parse(file)
-
-        # Соединение с сервером
         try:
+            # Загрузка сообщения из файла
+            with open(msg_path, "r+b") as file:
+                message = BytesParser(policy=default).parse(file)
+
             # Установлен флаг SSL
             if self.__ssl:
                 server = smtplib.SMTP_SSL(self.__address, self.__port)
@@ -142,13 +155,21 @@ class Mailer:
             # Установлен флаг STARTTLS
             if self.__tls:
                 server.starttls()
+
             # Вход на сервер
             server.login(self.__user, self.__password)
             # Отправка сообщения
             server.send_message(message, message["From"], message["To"])
             # Выход
             server.quit()
-        except smtplib.SMTPException as err:
-            return err
-        else:
+
             return True
+        except smtplib.SMTPException:
+            self.__logger.error("SMTP error occurred", exc_info=True)
+            return False
+        except FileNotFoundError:
+            self.__logger.error("File not found", exc_info=True)
+            return False
+        except IOError:
+            self.__logger.error(f"An error occurred while reading the file {msg_path}", exc_info=True)
+            return False

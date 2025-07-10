@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5b42eb6-d418-4f9a-bf6f-3140e224ff08" name="Changes" comment="Last commit before relize">
+    <list default="true" id="c5b42eb6-d418-4f9a-bf6f-3140e224ff08" name="Changes" comment="Reliz commit">
+      <change afterPath="$PROJECT_DIR$/tasks/mail_posting_100725.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/persons.json" beforeDir="false" afterPath="$PROJECT_DIR$/db/persons.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/handlers/json.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/json.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/handlers/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/tasks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
@@ -53,17 +55,20 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/marie/PycharmProjects/StreamMailer/services",
+    "last_opened_file_path": "C:/Users/marie/PycharmProjects/StreamMailer/tasks",
     "settings.editor.selected.configurable": "project.scopes"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\marie\PycharmProjects\StreamMailer\tasks" />
       <recent name="C:\Users\marie\PycharmProjects\StreamMailer\services" />
       <recent name="C:\Users\marie\PycharmProjects\StreamMailer\hadlers" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\marie\PycharmProjects\StreamMailer\tasks" />
+      <recent name="C:\Users\marie\PycharmProjects\StreamMailer\tasks\complete" />
+      <recent name="C:\Users\marie\PycharmProjects\StreamMailer\tasks\suspend" />
       <recent name="C:\Users\marie\PycharmProjects\StreamMailer\services" />
     </key>
   </component>
@@ -139,7 +144,23 @@
       <option name="project" value="LOCAL" />
       <updated>1751449471370</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Reliz commit">
+      <option name="closed" value="true" />
+      <created>1751720585376</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1751720585376</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Reliz commit">
+      <option name="closed" value="true" />
+      <created>1751720605492</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1751720605492</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -161,6 +182,7 @@
     <MESSAGE value="MVP release" />
     <MESSAGE value="Fixed: mailer, task manager, templates&#10;Realized: logging" />
     <MESSAGE value="Last commit before relize" />
-    <option name="LAST_COMMIT_MESSAGE" value="Last commit before relize" />
+    <MESSAGE value="Reliz commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reliz commit" />
   </component>
 </project>

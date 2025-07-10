@@ -103,7 +103,8 @@ class TaskManager:
             if content["service"] == "mailer":
                 # Собираем задание из существующих полей генератором словаря
                 task = dict({x: content[x] for x in
-                             ['service', 'from', 'to', 'subject', 'template', 'repeat', 'repeat-template', 'images', 'replaces'] if x in content})
+                             ['service', 'from', 'to', 'subject', 'images', 'template', 'repeat', 'repeat-subject',
+                              'repeat-images', 'repeat-template', 'replaces'] if x in content})
                 # Загружаем персональный словарь замен
                 self.__parser.parse("db/persons.json")
                 persons = self.__parser.get()
@@ -123,7 +124,7 @@ class TaskManager:
                 # Обрабатываем вторичную рассылку
                 if 'repeat' in task:
                     suspended = {'service': 'mailer', 'from': task['from'], 'to': content['to'],
-                                 'subject': content['repeat-subject'], 'template': content['repeat-template'],
+                                 'subject': content['repeat-subject'], 'images': content['repeat-images'], 'template': content['repeat-template'],
                                  'replaces': content['replaces']}
                     # Записываем задание в файл
                     self.__parser.set(suspended)
@@ -174,6 +175,7 @@ class TaskManager:
         """
 
         return len(self.__tasks)
+
     def __from_template(self, template_file: str, replaces: dict):
         """
         Считывание шаблона и подготовка текста
